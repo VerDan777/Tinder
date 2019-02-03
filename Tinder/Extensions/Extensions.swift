@@ -29,7 +29,7 @@ extension UIView {
         }
         
         if let bottom = bottom {
-            self.bottomAnchor.constraint(equalTo: bottom, constant: paddingBottom).isActive = true;
+            self.bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true;
         }
         
         if let left = left {

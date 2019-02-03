@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D52432AC2206FBB900DE2F29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AB2206FBB900DE2F29 /* User.swift */; };
+		D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AF2207124900DE2F29 /* CardViewModel.swift */; };
+		D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432B1220718E200DE2F29 /* Advertiser.swift */; };
 		D52922522205BE0700508F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922512205BE0700508F94 /* AppDelegate.swift */; };
 		D52922542205BE0700508F94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922532205BE0700508F94 /* ViewController.swift */; };
 		D52922572205BE0700508F94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D52922552205BE0700508F94 /* Main.storyboard */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D52432AB2206FBB900DE2F29 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D52432AF2207124900DE2F29 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		D52432B1220718E200DE2F29 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		D529224E2205BE0700508F94 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52922512205BE0700508F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D52922532205BE0700508F94 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +88,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D52432AA2206FB6F00DE2F29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D52432AB2206FBB900DE2F29 /* User.swift */,
+				D52432B1220718E200DE2F29 /* Advertiser.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D52432AD22070BDA00DE2F29 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D52922532205BE0700508F94 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D52432AE2207122D00DE2F29 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D52432AF2207124900DE2F29 /* CardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		D52922452205BE0700508F94 = {
 			isa = PBXGroup;
 			children = (
@@ -105,10 +136,12 @@
 		D52922502205BE0700508F94 /* Tinder */ = {
 			isa = PBXGroup;
 			children = (
+				D52432AE2207122D00DE2F29 /* ViewModels */,
+				D52432AA2206FB6F00DE2F29 /* Model */,
 				D52922822205D34700508F94 /* Views */,
 				D529227F2205BE2600508F94 /* Extensions */,
 				D52922512205BE0700508F94 /* AppDelegate.swift */,
-				D52922532205BE0700508F94 /* ViewController.swift */,
+				D52432AD22070BDA00DE2F29 /* Controller */,
 				D52922552205BE0700508F94 /* Main.storyboard */,
 				D52922582205BE0900508F94 /* Assets.xcassets */,
 				D529225A2205BE0900508F94 /* LaunchScreen.storyboard */,
@@ -286,10 +319,13 @@
 			files = (
 				D52922842205D39500508F94 /* HomeButtonStackViiew.swift in Sources */,
 				D52922542205BE0700508F94 /* ViewController.swift in Sources */,
+				D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */,
 				D52922812205C3F100508F94 /* Extensions.swift in Sources */,
 				D52922522205BE0700508F94 /* AppDelegate.swift in Sources */,
+				D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */,
 				D52922882205E61C00508F94 /* CardView.swift in Sources */,
 				D52922862205DECE00508F94 /* TopNavigationStackView.swift in Sources */,
+				D52432AC2206FBB900DE2F29 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
