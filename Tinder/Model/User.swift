@@ -12,13 +12,13 @@ struct User:ProducesCardViewModel {
     let name: String;
     let age: String;
     let profession: String;
-    let imageName: String;
+    let imageNames: [String];
     
-    init(name: String, age: String, profession: String, imageName: String) {
+    init(name: String, age: String, profession: String, imageNames: [String]) {
         self.name = name;
         self.age = age;
         self.profession = profession;
-        self.imageName = imageName;
+        self.imageNames = imageNames;
     }
     
     func toCardViewModel() -> CardViewModel {
@@ -26,7 +26,7 @@ struct User:ProducesCardViewModel {
         
         attributedText.append(NSAttributedString(string: " \(age)", attributes: [.font: UIFont.systemFont(ofSize: 24, weight: .light)]));
         attributedText.append(NSAttributedString(string: "\n \(profession)", attributes: [.font: UIFont.systemFont(ofSize: 24, weight: .regular)]));
-        return CardViewModel(imageName: imageName, attributedString: attributedText, textAlignment: .left)
+        return CardViewModel(imageNames: imageNames, attributedString: attributedText, textAlignment: .left)
     }
     
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 class CardView: UIView {
+    var images: [String] = [];
+
     let imageView: UIImageView = {
         let img = UIImageView(image: #imageLiteral(resourceName: "woman"));
         img.contentMode = .scaleAspectFill;
@@ -22,10 +24,13 @@ class CardView: UIView {
         informationLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold);
         return informationLabel;
     }();
+
     let gradientLayer = CAGradientLayer();
+    fileprivate let barStackView = UIStackView();
     
-    override init(frame: CGRect) {
-        super.init(frame: frame);
+     init(images: [String]) {
+        self.images = images;
+        super.init(frame: .zero);
         layer.cornerRadius = 10;
         clipsToBounds = true;
         
@@ -33,13 +38,51 @@ class CardView: UIView {
         setupGradientLayer();
         addSubview(informationLabel);
         
+        setupBarStackView();
+        
         informationLabel.anchor(top: nil, left: self.leadingAnchor, bottom: bottomAnchor, right: self.trailingAnchor, paddingTop: 0, paddingBottom: 20, paddingLeft: 12, paddingRight: 0, width: 0, height: 0);
         
         imageView.fillSuperview();
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan));
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap));
+        addGestureRecognizer(tapGesture);
         addGestureRecognizer(panGesture);
     }
+    
+    var imageIndex = 0;
+    
+    @objc fileprivate func handleTap(gesture: UITapGestureRecognizer) {
+        let shouldNextPhoto = gesture.location(in: nil).x > frame.width / 2 ? true : false;
+        
+        if shouldNextPhoto {
+            imageIndex = min(imageIndex + 1, images.count - 1);
+        } else {
+            imageIndex = max(0, imageIndex - 1);
+        }
+        
+        let imageName = self.images[imageIndex];
+        imageView.image = UIImage(named: imageName);
+        barStackView.arrangedSubviews.forEach { (v) in
+            v.backgroundColor = UIColor(white: 0, alpha: 0.1);
+        }
+        barStackView.arrangedSubviews[imageIndex].backgroundColor = .white;
+    }
+    
+    fileprivate func setupBarStackView() {
+        addSubview(barStackView);
+        barStackView.anchor(top: topAnchor, left: self.leadingAnchor, bottom: nil, right: self.trailingAnchor, paddingTop: 8, paddingBottom: 0, paddingLeft: 8, paddingRight: 8, width: 0, height: 4);
+
+        barStackView.spacing = 4;
+        barStackView.distribution = .fillEqually;
+        
+        (0..<images.count).forEach { (view) in
+            let view = UIView();
+            view.backgroundColor = UIColor(white: 0, alpha: 0.1);
+            barStackView.addArrangedSubview(view);
+        }
+        barStackView.arrangedSubviews.first?.backgroundColor = .white
+    };
     
     fileprivate func setupGradientLayer() {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor];

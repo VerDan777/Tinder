@@ -24,7 +24,7 @@ struct Advertiser:ProducesCardViewModel {
             attributes: [
                 .font: UIFont.systemFont(ofSize: 30, weight: .bold)
             ]));
-        return CardViewModel(imageName: posterPhotoName, attributedString: attributedString, textAlignment: .center);
+        return CardViewModel(imageNames: [posterPhotoName], attributedString: attributedString, textAlignment: .center);
     }
 }
 

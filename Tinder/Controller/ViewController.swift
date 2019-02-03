@@ -15,16 +15,16 @@ class ViewController: UIViewController {
     let bottomStackView = HomeButtonStackView();
     
     let users: [User] = [
-      User(name: "Kelly", age: "23", profession: "Programmer", imageName: "ironman"),
-      User(name: "Alexandra", age: "18", profession: "Architect", imageName:"woman"),
-      User(name: "Sonya", age: "19", profession: "Model", imageName: "woman2"),
-      User(name: "Alina", age: "21", profession: "Designer", imageName: "woman3")
+      User(name: "Kelly", age: "23", profession: "Programmer", imageNames: ["ironman"]),
+      User(name: "Alexandra", age: "18", profession: "Architect", imageNames:["woman"]),
+      User(name: "Sonya", age: "19", profession: "Model", imageNames: ["woman2"]),
+      User(name: "Alina", age: "21", profession: "Designer", imageNames: ["woman3"])
     ];
-    let cardViewsModel: [CardViewModel] = [
-        User(name: "Kelly", age: "23", profession: "Programmer", imageName: "ironman").toCardViewModel(),
-        User(name: "Alexandra", age: "18", profession: "Architect", imageName:"woman").toCardViewModel(),
-        User(name: "Sonya", age: "19", profession: "Model", imageName: "woman2").toCardViewModel(),
-        User(name: "Alina", age: "21", profession: "Designer", imageName: "woman3").toCardViewModel(),
+    let cardViewsModel = [
+        User(name: "Kelly", age: "23", profession: "Programmer", imageNames: ["ironman", "woman"]).toCardViewModel(),
+        User(name: "Alexandra", age: "18", profession: "Architect", imageNames:["woman", "ironman"]).toCardViewModel(),
+        User(name: "Sonya", age: "19", profession: "Model", imageNames: ["woman2"]).toCardViewModel(),
+        User(name: "Alina", age: "21", profession: "Designer", imageNames: ["woman3"]).toCardViewModel(),
         Advertiser(title: "Hello", brandName: "It's Tinder", posterPhotoName: "poster").toCardViewModel(),
     ];
 
@@ -43,11 +43,11 @@ class ViewController: UIViewController {
     
     fileprivate func setupDummyCards() {
         cardViewsModel.forEach{ (cardVM) in
-            let cardView = CardView(frame: .zero);
-            cardView.imageView.image = UIImage(named: cardVM.imageName);
+            let cardView = CardView(images: cardVM.imageNames);
+            cardView.imageView.image = UIImage(named: cardVM.imageNames[0]);
             cardView.informationLabel.attributedText = cardVM.attributedString;
             cardView.informationLabel.textAlignment = cardVM.textAlignment;
-            
+            print(cardVM.imageNames.count);
             cardView.informationLabel.numberOfLines = 0;
             cardsDeckView.addSubview(cardView);
             cardView.fillSuperview();
