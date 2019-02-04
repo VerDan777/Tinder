@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5121A052208A42600218E27 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5121A042208A42600218E27 /* CustomTextField.swift */; };
 		D52432AC2206FBB900DE2F29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AB2206FBB900DE2F29 /* User.swift */; };
 		D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AF2207124900DE2F29 /* CardViewModel.swift */; };
 		D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432B1220718E200DE2F29 /* Advertiser.swift */; };
@@ -21,6 +22,7 @@
 		D52922842205D39500508F94 /* HomeButtonStackViiew.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922832205D39500508F94 /* HomeButtonStackViiew.swift */; };
 		D52922862205DECE00508F94 /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922852205DECE00508F94 /* TopNavigationStackView.swift */; };
 		D52922882205E61C00508F94 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922872205E61C00508F94 /* CardView.swift */; };
+		D52ADBC32208196900DFD562 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52ADBC22208196900DFD562 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5121A042208A42600218E27 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		D52432AB2206FBB900DE2F29 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D52432AF2207124900DE2F29 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		D52432B1220718E200DE2F29 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		D52922832205D39500508F94 /* HomeButtonStackViiew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonStackViiew.swift; sourceTree = "<group>"; };
 		D52922852205DECE00508F94 /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
 		D52922872205E61C00508F94 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D52ADBC22208196900DFD562 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				D52922532205BE0700508F94 /* ViewController.swift */,
+				D52ADBC22208196900DFD562 /* RegisterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 				D52922832205D39500508F94 /* HomeButtonStackViiew.swift */,
 				D52922852205DECE00508F94 /* TopNavigationStackView.swift */,
 				D52922872205E61C00508F94 /* CardView.swift */,
+				D5121A042208A42600218E27 /* CustomTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +324,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D52922842205D39500508F94 /* HomeButtonStackViiew.swift in Sources */,
+				D5121A052208A42600218E27 /* CustomTextField.swift in Sources */,
+				D52ADBC32208196900DFD562 /* RegisterViewController.swift in Sources */,
 				D52922542205BE0700508F94 /* ViewController.swift in Sources */,
 				D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */,
 				D52922812205C3F100508F94 /* Extensions.swift in Sources */,
