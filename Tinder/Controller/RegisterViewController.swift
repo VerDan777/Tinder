@@ -16,6 +16,7 @@ class RegisterViewController: UIViewController {
         selectButton.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy);
         selectButton.setTitleColor(.black, for: .normal);
         selectButton.heightAnchor.constraint(equalToConstant: 300).isActive = true;
+        selectButton.widthAnchor.constraint(equalToConstant: 275).isActive = true;
         selectButton.layer.cornerRadius = 16;
         selectButton.backgroundColor = .white;
         return selectButton;
@@ -56,12 +57,12 @@ class RegisterViewController: UIViewController {
         return signUpButton;
     }();
     
+    let gradientLayer = CAGradientLayer();
     
     fileprivate func setupGradientLayer() {
-        let gradientLayer = CAGradientLayer();
         gradientLayer.locations = [0,1];
         gradientLayer.colors = [UIColor.rgb(red: 253, green: 91, blue: 95).cgColor, UIColor.rgb(red: 229, green: 0, blue: 114).cgColor];
-        gradientLayer.frame = view.frame;
+        gradientLayer.frame = view.bounds;
         self.view.layer.addSublayer(gradientLayer);
     }
     
@@ -93,13 +94,37 @@ class RegisterViewController: UIViewController {
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 20);
     }
     
-    lazy var stackView = UIStackView(arrangedSubviews: [
+    lazy var overallStackview = UIStackView(arrangedSubviews: [
         selectButton,
-        fullNameTextField,
-        emailTextField,
-        passwordTextField,
-        signUpButton
+        stackView,
         ]);
+    
+    lazy var stackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [
+            fullNameTextField,
+            emailTextField,
+            passwordTextField,
+            signUpButton
+            ]);
+        sv.axis = .vertical;
+        sv.spacing = 8;
+        sv.distribution = .fillEqually;
+        return sv;
+    }();
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if self.traitCollection.verticalSizeClass == .compact {
+            overallStackview.axis = .horizontal
+            selectButton.widthAnchor.constraint(equalToConstant: 275).isActive = true;
+        } else {
+            overallStackview.axis = .vertical;
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews();
+        gradientLayer.frame = view.bounds;
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -107,13 +132,14 @@ class RegisterViewController: UIViewController {
         setupGradientLayer();
         setupNofiticationObservers();
         setupDismissKeyboard();
-        stackView.axis = .vertical;
-        stackView.spacing = 8;
         
-        self.view.addSubview(stackView);
+        overallStackview.axis = .vertical;
+        overallStackview.spacing = 8;
+        
+        self.view.addSubview(overallStackview);
 
-        stackView.anchor(top: nil, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, paddingTop: 32, paddingBottom: 0, paddingLeft: 12, paddingRight: 12, width: 0, height: 0);
-        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true;
+        overallStackview.anchor(top: nil, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, paddingTop: 32, paddingBottom: 0, paddingLeft: 12, paddingRight: 12, width: 0, height: 0);
+        overallStackview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true;
     }
 
 }
