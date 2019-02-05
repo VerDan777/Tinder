@@ -67,10 +67,24 @@ class RegisterViewController: UIViewController {
     
     fileprivate func setupNofiticationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleShowKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(handleHideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil);
     };
     
+    fileprivate func setupDismissKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)));
+    }
+    
+    @objc func handleTap() {
+        self.view.endEditing(true);
+    }
+    
+    @objc func handleHideKeyboard() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+           self.view.transform = .identity;
+        })
+    }
+    
     @objc func handleShowKeyboard(notification: Notification) {
-        print("test");
         guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return };
         let keyboardFrame = value.cgRectValue;
         let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height;
@@ -92,6 +106,7 @@ class RegisterViewController: UIViewController {
         
         setupGradientLayer();
         setupNofiticationObservers();
+        setupDismissKeyboard();
         stackView.axis = .vertical;
         stackView.spacing = 8;
         
