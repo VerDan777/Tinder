@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5023C122209F7A1003B87F2 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5023C112209F7A1003B87F2 /* RegistrationViewModel.swift */; };
 		D5121A052208A42600218E27 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5121A042208A42600218E27 /* CustomTextField.swift */; };
 		D52432AC2206FBB900DE2F29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AB2206FBB900DE2F29 /* User.swift */; };
 		D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AF2207124900DE2F29 /* CardViewModel.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5023C112209F7A1003B87F2 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		D5121A042208A42600218E27 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		D52432AB2206FBB900DE2F29 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D52432AF2207124900DE2F29 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				D52922532205BE0700508F94 /* ViewController.swift */,
 				D52ADBC22208196900DFD562 /* RegisterViewController.swift */,
+				D5023C112209F7A1003B87F2 /* RegistrationViewModel.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D52922842205D39500508F94 /* HomeButtonStackViiew.swift in Sources */,
+				D5023C122209F7A1003B87F2 /* RegistrationViewModel.swift in Sources */,
 				D5121A052208A42600218E27 /* CustomTextField.swift in Sources */,
 				D52ADBC32208196900DFD562 /* RegisterViewController.swift in Sources */,
 				D52922542205BE0700508F94 /* ViewController.swift in Sources */,

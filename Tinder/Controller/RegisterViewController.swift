@@ -27,6 +27,7 @@ class RegisterViewController: UIViewController {
         nameTf.placeholder = "Name";
         nameTf.backgroundColor = .white;
         nameTf.layer.cornerRadius = 16;
+        nameTf.addTarget(self, action: #selector(handleText), for: .editingChanged);
         return nameTf;
     }();
 
@@ -35,6 +36,7 @@ class RegisterViewController: UIViewController {
         emailTf.placeholder = "Name";
         emailTf.backgroundColor = .white;
         emailTf.layer.cornerRadius = 16;
+        emailTf.addTarget(self, action: #selector(handleText), for: .editingChanged);
         return emailTf;
     }();
     
@@ -43,6 +45,7 @@ class RegisterViewController: UIViewController {
         passwordTf.placeholder = "Name";
         passwordTf.backgroundColor = .white;
         passwordTf.layer.cornerRadius = 16;
+        passwordTf.addTarget(self, action: #selector(handleText), for: .editingChanged);
         return passwordTf;
     }();
     
@@ -51,13 +54,28 @@ class RegisterViewController: UIViewController {
         signUpButton.setTitle("Register", for: .normal);
         signUpButton.setTitleColor(.white, for: .normal);
         signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy);
-        signUpButton.backgroundColor = .red;
+        signUpButton.backgroundColor = .gray;
+        signUpButton.isEnabled = false;
         signUpButton.layer.cornerRadius = 16;
         
         return signUpButton;
     }();
     
     let gradientLayer = CAGradientLayer();
+    
+    @objc func handleText(textField: UITextField) {
+        if textField == fullNameTextField {
+            print("fullname")
+            registrationViewModel.fullName = textField.text
+        } else if textField == emailTextField {
+            print("email")
+            registrationViewModel.email = textField.text
+        } else {
+            print("password");
+            registrationViewModel.password = textField.text
+        }
+        
+    };
     
     fileprivate func setupGradientLayer() {
         gradientLayer.locations = [0,1];
@@ -91,7 +109,7 @@ class RegisterViewController: UIViewController {
         let bottomSpace = view.frame.height - stackView.frame.origin.y - stackView.frame.height;
         
         let difference = keyboardFrame.height - bottomSpace;
-        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 20);
+        self.view.transform = CGAffineTransform(translationX: 0, y: -difference - 75);
     }
     
     lazy var overallStackview = UIStackView(arrangedSubviews: [
@@ -121,6 +139,19 @@ class RegisterViewController: UIViewController {
         }
     }
     
+    let registrationViewModel = RegistrationViewModel();
+    
+    fileprivate func setupRegistrationViewModelObserver() {
+        registrationViewModel.isFormValidObserver = {(isFormValid) in
+            print("", isFormValid);
+            
+            if isFormValid {
+                self.signUpButton.backgroundColor = .red;
+                self.signUpButton.isEnabled = true;
+            }
+        }
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews();
         gradientLayer.frame = view.bounds;
@@ -131,6 +162,7 @@ class RegisterViewController: UIViewController {
         
         setupGradientLayer();
         setupNofiticationObservers();
+        setupRegistrationViewModelObserver();
         setupDismissKeyboard();
         
         overallStackview.axis = .vertical;
