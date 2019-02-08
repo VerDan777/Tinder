@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Accelerate
 
 class CardView: UIView {
+    
     var images: [String] = [];
 
     let imageView: UIImageView = {

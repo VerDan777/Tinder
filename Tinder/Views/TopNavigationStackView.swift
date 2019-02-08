@@ -9,12 +9,18 @@
 import UIKit
 
 class TopNavigationStackView: UIStackView {
+    @objc func handleTap() {
+        let settings = SettingsViewController();
+//        navigation present(settings, animated: true);
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.heightAnchor.constraint(equalToConstant: 100).isActive = true;
         
         let subViews = [#imageLiteral(resourceName: "person"), #imageLiteral(resourceName: "fire"), #imageLiteral(resourceName: "chat")].map { (img) -> UIView in
             let button = UIButton(type: .system);
+            button.addTarget(self, action: #selector(handleTap), for: .touchUpInside);
             button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal);
             return button;
         }

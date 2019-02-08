@@ -8,6 +8,18 @@
 
 import UIKit
 
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil);
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage;
+        self.selectButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal);
+        dismiss(animated: true, completion: nil);
+    }
+}
+
 class RegisterViewController: UIViewController {
     
     let selectButton: UIButton = {
@@ -18,7 +30,10 @@ class RegisterViewController: UIViewController {
         selectButton.heightAnchor.constraint(equalToConstant: 300).isActive = true;
         selectButton.widthAnchor.constraint(equalToConstant: 275).isActive = true;
         selectButton.layer.cornerRadius = 16;
+        selectButton.addTarget(self, action: #selector(handlePick), for: .touchUpInside);
         selectButton.backgroundColor = .white;
+        selectButton.imageView?.contentMode = .scaleAspectFill;
+        selectButton.clipsToBounds = true;
         return selectButton;
     }();
     
@@ -56,12 +71,27 @@ class RegisterViewController: UIViewController {
         signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy);
         signUpButton.backgroundColor = .gray;
         signUpButton.isEnabled = false;
+        signUpButton.addTarget(self, action: #selector(handRedirect), for: .touchUpInside);
         signUpButton.layer.cornerRadius = 16;
         
         return signUpButton;
     }();
     
+    @objc func handRedirect() {
+        print("test");
+        self.dismiss(animated:true, completion: nil);
+//        navigationController?.pushViewController(UIViewController(), animated: true);
+    }
+    
     let gradientLayer = CAGradientLayer();
+    
+    @objc func handlePick() {
+        print("works");
+        let picker = UIImagePickerController();
+        picker.delegate = self;
+        picker.allowsEditing = true;
+        self.present(picker, animated: true);
+    };
     
     @objc func handleText(textField: UITextField) {
         if textField == fullNameTextField {
@@ -127,7 +157,7 @@ class RegisterViewController: UIViewController {
         sv.axis = .vertical;
         sv.spacing = 8;
         sv.distribution = .fillEqually;
-        return sv;
+        return sv; 
     }();
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -159,6 +189,8 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        navigationController?.setNavigationBarHidden(true, animated: false);
         
         setupGradientLayer();
         setupNofiticationObservers();

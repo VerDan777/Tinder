@@ -19,7 +19,7 @@ import UIKit
         
         window = UIWindow();
         window?.makeKeyAndVisible();
-        window?.rootViewController = RegisterViewController();
+        window?.rootViewController = SettingsViewController();
         return true
     }
 
