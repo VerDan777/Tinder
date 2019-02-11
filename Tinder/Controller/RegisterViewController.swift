@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -37,6 +39,21 @@ class RegisterViewController: UIViewController {
         return selectButton;
     }();
     
+   @objc fileprivate func testRead() {
+        let ref = Database.database().reference();
+        
+        ref.child("users").observe(DataEventType.value) { (snapshot, err) in
+            if let err = err {
+                print(err);
+                return;
+            }
+            
+            let dict = snapshot.value as? [String: Any] ?? [:];
+            let name = dict["fullName"] as? String ?? "";
+            print("some data", snapshot);
+        }
+    };
+    
     let fullNameTextField: CustomTextField = {
         let nameTf = CustomTextField();
         nameTf.placeholder = "Name";
@@ -48,7 +65,7 @@ class RegisterViewController: UIViewController {
 
     let emailTextField: CustomTextField = {
         let emailTf = CustomTextField();
-        emailTf.placeholder = "Name";
+        emailTf.placeholder = "email";
         emailTf.backgroundColor = .white;
         emailTf.layer.cornerRadius = 16;
         emailTf.addTarget(self, action: #selector(handleText), for: .editingChanged);
@@ -57,7 +74,8 @@ class RegisterViewController: UIViewController {
     
     let passwordTextField: CustomTextField = {
         let passwordTf = CustomTextField();
-        passwordTf.placeholder = "Name";
+        passwordTf.placeholder = "password";
+        passwordTf.isSecureTextEntry = true;
         passwordTf.backgroundColor = .white;
         passwordTf.layer.cornerRadius = 16;
         passwordTf.addTarget(self, action: #selector(handleText), for: .editingChanged);
@@ -71,16 +89,84 @@ class RegisterViewController: UIViewController {
         signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy);
         signUpButton.backgroundColor = .gray;
         signUpButton.isEnabled = false;
-        signUpButton.addTarget(self, action: #selector(handRedirect), for: .touchUpInside);
+        signUpButton.addTarget(self, action: #selector(handleRedirect), for: .touchUpInside);
         signUpButton.layer.cornerRadius = 16;
         
         return signUpButton;
     }();
     
-    @objc func handRedirect() {
-        print("test");
-        self.dismiss(animated:true, completion: nil);
-//        navigationController?.pushViewController(UIViewController(), animated: true);
+    var registerHUD = JGProgressHUD(style: .dark);
+    
+    @objc func handleRedirect() {
+        guard let email = emailTextField.text else { return };
+        guard let password = passwordTextField.text else { return };
+        print(email);
+        
+        let image = selectButton.currentImage?.jpegData(compressionQuality: 0.75) ?? Data();
+        registerHUD.show(in: view);
+        registerHUD.textLabel.text = "Registration";
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (res, err) in
+            if let err = err {
+                print(err);
+                self.showHUDWithError(err: err);
+                return;
+            }
+            
+            let filename = UUID().uuidString;
+            let ref = Storage.storage().reference(withPath: "/images/\(filename)");
+            
+            ref.putData(image, metadata:nil, completion: {(_, err) in
+                if let err = err {
+                    self.showHUDWithError(err: err);
+                }
+                
+                print("finished uploading");
+                
+                self.registerHUD.dismiss();
+
+                ref.downloadURL(completion: { (url, err) in
+                    let imageUrl = url?.absoluteString ?? "";
+                    
+                    self.saveToFirestore(imageURL: imageUrl, completition: { (err) in
+                        print("Saved");
+                    });
+                });
+            });
+            
+            print("Successful", res?.user.uid ?? "");
+        }
+    }
+    
+    func saveToFirestore(imageURL:String,completition: @escaping(Error?) -> ()) {
+        let uid = Auth.auth().currentUser?.uid ?? "";
+        let docData = ["fullName": fullNameTextField.text ?? "", "uid": uid, "imageUrl": imageURL ];
+        let ref = Database.database().reference()
+        ref.child("users").child(uid).setValue(docData) {
+           (err, res) in
+            if let err = err {
+                print(err);
+                return;
+            }
+            print(res);
+        }
+//        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
+//            if let err = err {
+//                completition(err);
+//                return;
+//            }
+//
+//            completition(nil);
+//        }
+    };
+    
+    fileprivate func showHUDWithError(err: Error) {
+        registerHUD.dismiss();
+        let progress = JGProgressHUD(style: .dark);
+        progress.textLabel.text = "Failed reg";
+        progress.detailTextLabel.text = err.localizedDescription;
+        progress.show(in: self.view);
+        progress.dismiss(afterDelay: 4);
     }
     
     let gradientLayer = CAGradientLayer();
@@ -152,7 +238,7 @@ class RegisterViewController: UIViewController {
             fullNameTextField,
             emailTextField,
             passwordTextField,
-            signUpButton
+            signUpButton,
             ]);
         sv.axis = .vertical;
         sv.spacing = 8;
@@ -189,8 +275,6 @@ class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        navigationController?.setNavigationBarHidden(true, animated: false);
         
         setupGradientLayer();
         setupNofiticationObservers();

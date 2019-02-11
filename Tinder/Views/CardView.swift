@@ -10,11 +10,17 @@ import UIKit
 import Accelerate
 
 class CardView: UIView {
+//
+//    var model: User {
+//        didSet {
+//            self.downLoad(url: model.imageNames[0]);
+//        }
+//    }
     
     var images: [String] = [];
 
     let imageView: UIImageView = {
-        let img = UIImageView(image: #imageLiteral(resourceName: "woman"));
+        let img = UIImageView(image: #imageLiteral(resourceName: "poster"));
         img.contentMode = .scaleAspectFill;
         return img;
     }();
@@ -38,6 +44,7 @@ class CardView: UIView {
         
         addSubview(imageView);
         setupGradientLayer();
+//        downLoad(url: images[0])
         addSubview(informationLabel);
         
         setupBarStackView();
@@ -70,6 +77,22 @@ class CardView: UIView {
         }
         barStackView.arrangedSubviews[imageIndex].backgroundColor = .white;
     }
+    
+    func downLoad(url: String) {
+        print("URL", url);
+        let request = URL(string: "https://firebasestorage.googleapis.com/v0/b/tinder-a6f16.appspot.com/o/images%2F86BD8517-5318-4852-BB9F-8F88BF17B597?alt=media&token=0641fc61-afdd-4fb3-8108-6c7b26590530")!;
+        
+        URLSession.shared.dataTask(with: URLRequest(url: request)) { (data, res, err) in
+            if let err = err {
+                print(err);
+                return;
+            }
+            guard let data = data else { return };
+            DispatchQueue.main.async {
+                self.imageView.image = UIImage(data: data);
+            }
+            }.resume()
+    };
     
     fileprivate func setupBarStackView() {
         addSubview(barStackView);

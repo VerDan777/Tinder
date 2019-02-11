@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
  class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +17,12 @@ import UIKit
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
         
         window = UIWindow();
         window?.makeKeyAndVisible();
-        window?.rootViewController = SettingsViewController();
+        window?.rootViewController = RegisterViewController();
+        window?.rootViewController = ViewController();
         return true
     }
 

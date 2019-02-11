@@ -18,7 +18,11 @@ struct User:ProducesCardViewModel {
         self.name = name;
         self.age = age;
         self.profession = profession;
-        self.imageNames = imageNames;
+        self.imageNames = imageNames
+//        self.name = name;
+//        self.age = age;
+//        self.profession = profession;
+//        self.imageNames = imageNames;
     }
     
     func toCardViewModel() -> CardViewModel {
