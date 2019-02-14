@@ -9,34 +9,32 @@
 import UIKit
 
 class TopNavigationStackView: UIStackView {
-    @objc func handleTap() {
-        let settings = SettingsViewController();
-//        navigation present(settings, animated: true);
-    }
+    
+    let settingsButton = UIButton(type: .system)
+    let messageButton = UIButton(type: .system)
+    let fireImageView = UIImageView(image: #imageLiteral(resourceName: "fire"))
     
     override init(frame: CGRect) {
-        super.init(frame: frame);
-        self.heightAnchor.constraint(equalToConstant: 100).isActive = true;
+        super.init(frame: frame)
+        heightAnchor.constraint(equalToConstant: 80).isActive = true
+        fireImageView.contentMode = .scaleAspectFit
         
-        let subViews = [#imageLiteral(resourceName: "person"), #imageLiteral(resourceName: "fire"), #imageLiteral(resourceName: "chat")].map { (img) -> UIView in
-            let button = UIButton(type: .system);
-            button.addTarget(self, action: #selector(handleTap), for: .touchUpInside);
-            button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal);
-            return button;
-        }
+        settingsButton.setImage(#imageLiteral(resourceName: "person").withRenderingMode(.alwaysOriginal), for: .normal)
+        messageButton.setImage(#imageLiteral(resourceName: "chat").withRenderingMode(.alwaysOriginal), for: .normal)
         
-        subViews.forEach{ (view) in
-            addArrangedSubview(view);
+        [settingsButton, UIView(), fireImageView, UIView(), messageButton].forEach { (v) in
+            addArrangedSubview(v)
         }
         
         distribution = .equalCentering
-        isLayoutMarginsRelativeArrangement = true;
         
-        layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12);
+        isLayoutMarginsRelativeArrangement = true
+        layoutMargins = .init(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     required init(coder: NSCoder) {
-        fatalError("fatal error");
+        fatalError()
     }
-
+    
 }
+

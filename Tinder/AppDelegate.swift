@@ -21,7 +21,6 @@ import Firebase
         
         window = UIWindow();
         window?.makeKeyAndVisible();
-        window?.rootViewController = RegisterViewController();
         window?.rootViewController = ViewController();
         return true
     }

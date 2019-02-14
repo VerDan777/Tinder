@@ -45,11 +45,19 @@ class ViewController: UIViewController {
     
     var cardViewsModel = [CardViewModel]();
 
+    @objc func hanleGoSettings() {
+        let settings = SettingsViewController();
+        let navContoller = UINavigationController(rootViewController: settings);
+        self.present(navContoller, animated: true);
+    };
+    
     fileprivate func setupLayouts() {
         let overallStackView = UIStackView(arrangedSubviews: [topStackView, cardsDeckView, bottomStackView]);
         overallStackView.axis = .vertical;
         
         view.addSubview(overallStackView);
+        
+        topStackView.settingsButton.addTarget(self, action: #selector(hanleGoSettings), for: .touchUpInside);
         
         overallStackView.frame = .init(x: 0, y: 0, width: 300, height: 200);
         overallStackView.isLayoutMarginsRelativeArrangement = true;
