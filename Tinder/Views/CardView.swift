@@ -8,7 +8,6 @@
 
 import UIKit
 import Accelerate
-
 class CardView: UIView {
 //
 //    var model: User {

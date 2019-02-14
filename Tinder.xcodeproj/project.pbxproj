@@ -14,6 +14,7 @@
 		D52432AC2206FBB900DE2F29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AB2206FBB900DE2F29 /* User.swift */; };
 		D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AF2207124900DE2F29 /* CardViewModel.swift */; };
 		D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432B1220718E200DE2F29 /* Advertiser.swift */; };
+		D528BFF12215DC070007D075 /* CustomCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */; };
 		D52922522205BE0700508F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922512205BE0700508F94 /* AppDelegate.swift */; };
 		D52922542205BE0700508F94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922532205BE0700508F94 /* ViewController.swift */; };
 		D52922572205BE0700508F94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D52922552205BE0700508F94 /* Main.storyboard */; };
@@ -56,6 +57,7 @@
 		D52432AB2206FBB900DE2F29 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D52432AF2207124900DE2F29 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		D52432B1220718E200DE2F29 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
+		D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellTableViewCell.swift; sourceTree = "<group>"; };
 		D529224E2205BE0700508F94 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52922512205BE0700508F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D52922532205BE0700508F94 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				D52922852205DECE00508F94 /* TopNavigationStackView.swift */,
 				D52922872205E61C00508F94 /* CardView.swift */,
 				D5121A042208A42600218E27 /* CustomTextField.swift */,
+				D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				D52922522205BE0700508F94 /* AppDelegate.swift in Sources */,
 				D5BE76E1220C4AB100AA312A /* SearchViewController.swift in Sources */,
 				D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */,
+				D528BFF12215DC070007D075 /* CustomCellTableViewCell.swift in Sources */,
 				D52922882205E61C00508F94 /* CardView.swift in Sources */,
 				D52922862205DECE00508F94 /* TopNavigationStackView.swift in Sources */,
 				D52432AC2206FBB900DE2F29 /* User.swift in Sources */,

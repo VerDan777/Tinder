@@ -21,7 +21,7 @@ import Firebase
         
         window = UIWindow();
         window?.makeKeyAndVisible();
-        window?.rootViewController = ViewController();
+        window?.rootViewController = SettingsViewController();
         return true
     }
 
