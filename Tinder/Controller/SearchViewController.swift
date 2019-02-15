@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import SDWebImage
 
 class CustomPickerController: UIImagePickerController {
     var imageButton: UIButton?;
@@ -64,10 +66,53 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad();
         setupNavigations();
+        fetchProfile();
         tableView.backgroundColor = UIColor(white: 0.95, alpha: 1);
         tableView.tableFooterView = UIView();
-        tableView.keyboardDismissMode = .interactive
+        tableView.keyboardDismissMode = .interactive;
+//        let txt = CATextLayer();
+//        txt.string = 'txt';
+//        txt.foregroundColor
     }
+    
+    var user: User?
+    
+    func fetchProfile() {
+        let uid = Auth.auth().currentUser?.uid ?? "4i071fZmuoamyPXtyCvRNaYIl0I2";
+        let ref = Database.database().reference();
+        ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            print("callback")
+            // Get user value
+            guard  let dict = snapshot.value as? [String: Any] else { return };
+            print(dict);
+            guard let name = dict["fullName"] as? String else { return };
+            print(name);
+            guard let age = dict["age"] as? String else { return };
+            print(age);
+            guard let profession = dict["profession"] as? String else { return };
+            print(profession);
+            guard let imageNames = dict["imageUrl"] as? String else { return };
+            var imageNamesArr: [String] = [];
+            imageNamesArr.append(imageNames);
+            
+            self.user = User(name: name, age: age, profession: profession, imageNames: imageNamesArr);
+            self.loadImage();
+            
+            self.tableView.reloadData();
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    };
+    
+    fileprivate func loadImage() {
+        let image = self.user?.imageNames[0];
+        guard let url = URL(string: image!) else {return};
+        
+        SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (imageData, _, _, _, _, _) in
+            self.imageButton1.setImage(imageData?.withRenderingMode(.alwaysOriginal), for: .normal);
+        }
+    };
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -124,13 +169,22 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CustomCellTableViewCell();
         cell.backgroundColor = .white
-        switch  {
-        case 0:
-            <#code#>
+        
+        switch indexPath.section {
+        case 1:
+            cell.textField.placeholder = "Enter Name";
+            cell.textField.text = self.user?.name;
+        case 2:
+            cell.textField.placeholder = "Enter Profession"
+            cell.textField.text = self.user?.profession
+        case 3:
+            cell.textField.placeholder = "age"
+            if user?.age != nil {
+                cell.textField.text = user?.age;
+            }
         default:
-            <#code#>
+            cell.textField.placeholder = "Enter Bio";
         }
-        cell.textField.placeholder = ""
         return cell;
     }
     
