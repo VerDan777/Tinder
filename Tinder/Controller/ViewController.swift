@@ -81,22 +81,32 @@ class ViewController: UIViewController {
 //            var arr = [User]();
             
             for (_, value) in dict {
-                guard let cast = value as? [String: Any] else { return };
-                guard let fullName = cast["fullName"] as? String else { return };
-                guard let urlOfImage = cast["imageUrl"] as? String else { return };
-                guard let profession = cast["profession"] as? String else { return };
-                guard let age = cast["age"] as? String else { return };
+                guard let cast = value as? [String: Any] else {
+                    print("failed cast")
+                    return
+                };
+                guard let fullName = cast["fullName"] as? String else {
+                    print("failed fullName")
+                    return
+                };
+                guard let urlOfImage = cast["imageUrl"] as? String else {
+                    print("failed imageUrl")
+                    return
+                    
+                };
+                guard let profession = cast["profession"] as? String else {
+                    print("failed profession")
+                    return
+                };
+                guard let age = cast["age"] as? String else {
+                    print("age failed")
+                    return
+                };
                 
                 let infoUser = User(name: fullName, age: age, profession: profession, imageNames: [urlOfImage])
                 self.cardViewsModel.append(infoUser.self.toCardViewModel());
                 self.setupDummyCards();
             }
-//
-//            arr.forEach({ (item) in
-//                print(item["fullName"])
-//            })
-
-//            print(type(of: dict))
             
         }
     }
@@ -108,7 +118,7 @@ class ViewController: UIViewController {
                 DispatchQueue.main.async {
                     cardView.imageView.image = UIImage(data: data);
                 }
-            }
+            }	
             cardView.informationLabel.attributedText = cardVM.attributedString;
             cardView.informationLabel.textAlignment = cardVM.textAlignment;
             print(cardVM.imageNames.count);

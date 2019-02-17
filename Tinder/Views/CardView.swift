@@ -7,14 +7,8 @@
 //
 
 import UIKit
-import Accelerate
+
 class CardView: UIView {
-//
-//    var model: User {
-//        didSet {
-//            self.downLoad(url: model.imageNames[0]);
-//        }
-//    }
     
     var images: [String] = [];
 

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SDWebImage
+import JGProgressHUD
 
 class CustomPickerController: UIImagePickerController {
     var imageButton: UIButton?;
@@ -18,6 +19,10 @@ class HeaderLabel: UILabel {
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.insetBy(dx: 16, dy: 0));
     }
+}
+
+protocol setting {
+    func set();
 }
 
 class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -144,6 +149,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             label.text = "Age"
         case 4:
             label.text = "Bio"
+        case 5:
+            label.text = "Seeking age range"
         default:
             label.text = "Name"
         }
@@ -163,30 +170,54 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-       return 5;
+       return 6;
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CustomCellTableViewCell();
+        let cell1 = UITableViewCell();
+
+        if (indexPath.section == 5) {
+            cell1.backgroundColor = .blue;
+            return cell1;
+        };
+        
         cell.backgroundColor = .white
         
         switch indexPath.section {
         case 1:
             cell.textField.placeholder = "Enter Name";
             cell.textField.text = self.user?.name;
+            cell.textField.addTarget(self, action: #selector(handleEditName), for: .editingChanged);
         case 2:
             cell.textField.placeholder = "Enter Profession"
             cell.textField.text = self.user?.profession
+            cell.textField.addTarget(self, action: #selector(handleEditProfiession), for: .editingChanged);
         case 3:
             cell.textField.placeholder = "age"
+            cell.textField.addTarget(self, action: #selector(handleEditAge), for: .editingChanged);
             if user?.age != nil {
                 cell.textField.text = user?.age;
             }
+        case 5:
+            cell1.textLabel?.text = "test";
         default:
             cell.textField.placeholder = "Enter Bio";
         }
         return cell;
     }
+    
+    @objc func handleEditName(textfield: UITextField) {
+        print("change \(String(describing: textfield.text ?? ""))");
+    };
+    
+    @objc func handleEditProfiession(textfield: UITextField) {
+        print("change \(String(describing: textfield.text ?? ""))");
+    };
+    
+    @objc func handleEditAge(textfield: UITextField) {
+        print("change \(String(describing: textfield.text ?? ""))");
+    };
     
     @objc fileprivate func handleDismiss() {
         self.dismiss(animated: true, completion: nil)
@@ -197,8 +228,30 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     @objc func handleSave() {
-        print("Save");
+        let uid = Auth.auth().currentUser?.uid ?? "4i071fZmuoamyPXtyCvRNaYIl0I2";
+        let ref = Database.database().reference();
+        let data: [String: Any] = [
+            "uid": uid,
+            "fullName": self.user?.name ?? "",
+            "age": self.user?.age ?? -1,
+            "imageUrl": self.user?.imageNames ?? ["https://firebasestorage.googleapis.com/v0/b/tinder-a6f16.appspot.com/o/images%2F86BD8517-5318-4852-BB9F-8F88BF17B597?alt=media&token=0641fc61-afdd-4fb3-8108-6c7b26590530"],
+            "profession": self.user?.profession ?? "N/A",
+        ];
+        let hud = JGProgressHUD(style: .dark);
+        hud.textLabel.text = "Saving settings";
+        hud.show(in: view);
+
+
+        ref.child("users").child(uid).updateChildValues(data) { (err, snapshot) in
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            hud.dismiss();
+             print(snapshot);
+
+        };
     }
+    
     
     @objc func setupNavigations() {
         navigationItem.title = "Settings";

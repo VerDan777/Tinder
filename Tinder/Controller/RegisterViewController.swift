@@ -100,7 +100,6 @@ class RegisterViewController: UIViewController {
     @objc func handleRedirect() {
         guard let email = emailTextField.text else { return };
         guard let password = passwordTextField.text else { return };
-        print(email);
         
         let image = selectButton.currentImage?.jpegData(compressionQuality: 0.75) ?? Data();
         registerHUD.show(in: view);
@@ -149,6 +148,7 @@ class RegisterViewController: UIViewController {
                 return;
             }
             print(res);
+            self.dismiss(animated: true);
         }
 //        Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
 //            if let err = err {

@@ -21,7 +21,10 @@ import Firebase
         
         window = UIWindow();
         window?.makeKeyAndVisible();
-        window?.rootViewController = SettingsViewController();
+//        window?.rootViewController = ViewController();
+        let navController = UINavigationController(rootViewController: RegisterViewController());
+        navController.viewControllers = [RegisterViewController(), RegisterViewController(), ViewController()]
+        window?.rootViewController = navController;
         return true
     }
 
