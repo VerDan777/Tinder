@@ -21,10 +21,6 @@ class HeaderLabel: UILabel {
     }
 }
 
-protocol setting {
-    func set();
-}
-
 class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     let imageButton1: UIButton = {
         let button = UIButton(type: .system);
@@ -175,7 +171,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CustomCellTableViewCell();
-        let cell1 = UITableViewCell();
+        let cell1 = RangeCell();
 
         if (indexPath.section == 5) {
             cell1.backgroundColor = .blue;
@@ -224,7 +220,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     }
     
     @objc func handleLogout() {
-        print("Logout")
+        print("Logout");
+        self.dismiss(animated: true, completion: nil);
+        
     }
     
     @objc func handleSave() {
@@ -237,6 +235,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             "imageUrl": self.user?.imageNames ?? ["https://firebasestorage.googleapis.com/v0/b/tinder-a6f16.appspot.com/o/images%2F86BD8517-5318-4852-BB9F-8F88BF17B597?alt=media&token=0641fc61-afdd-4fb3-8108-6c7b26590530"],
             "profession": self.user?.profession ?? "N/A",
         ];
+
         let hud = JGProgressHUD(style: .dark);
         hud.textLabel.text = "Saving settings";
         hud.show(in: view);

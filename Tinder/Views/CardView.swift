@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol UserDetailDelegate {
+    func handleTapMoreInfo(card: CardViewModel);
+}
+
 class CardView: UIView {
     
+    var delegate: UserDetailDelegate?;
     var images: [String] = [];
+    var card: CardViewModel?;
 
     let imageView: UIImageView = {
         let img = UIImageView(image: #imageLiteral(resourceName: "poster"));
@@ -25,6 +31,21 @@ class CardView: UIView {
         informationLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold);
         return informationLabel;
     }();
+    
+    let moreInfo: UIButton = {
+        let moreInfoButton = UIButton(type: .system);
+        moreInfoButton.setImage(#imageLiteral(resourceName: "info_icon").withRenderingMode(.alwaysOriginal), for: .normal);
+        moreInfoButton.addTarget(self, action: #selector(handleDetail), for: .touchUpInside);
+        moreInfoButton.contentMode = .scaleAspectFill;
+        return moreInfoButton;
+    }();
+    
+    
+    @objc func handleDetail() {
+        guard let del = self.delegate else { return };
+        del.handleTapMoreInfo(card: self.card!);
+//        self.delegate!.handleTaphandleDetailMoreInfo();
+    };
 
     let gradientLayer = CAGradientLayer();
     fileprivate let barStackView = UIStackView();
@@ -39,10 +60,13 @@ class CardView: UIView {
         setupGradientLayer();
 //        downLoad(url: images[0])
         addSubview(informationLabel);
+        addSubview(moreInfo);
         
         setupBarStackView();
         
         informationLabel.anchor(top: nil, left: self.leadingAnchor, bottom: bottomAnchor, right: self.trailingAnchor, paddingTop: 0, paddingBottom: 20, paddingLeft: 12, paddingRight: 0, width: 0, height: 0);
+        
+        moreInfo.anchor(top: nil, left: nil, bottom: self.bottomAnchor, right: self.trailingAnchor, paddingTop: 0, paddingBottom: 12, paddingLeft: 0, paddingRight: 12, width: 0, height: 0);
         
         imageView.fillSuperview();
         

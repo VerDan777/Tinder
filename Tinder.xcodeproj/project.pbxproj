@@ -14,6 +14,7 @@
 		D52432AC2206FBB900DE2F29 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AB2206FBB900DE2F29 /* User.swift */; };
 		D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432AF2207124900DE2F29 /* CardViewModel.swift */; };
 		D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52432B1220718E200DE2F29 /* Advertiser.swift */; };
+		D526ABF1221AD1EE0045001D /* RangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D526ABF0221AD1EE0045001D /* RangeCell.swift */; };
 		D528BFF12215DC070007D075 /* CustomCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */; };
 		D52922522205BE0700508F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922512205BE0700508F94 /* AppDelegate.swift */; };
 		D52922542205BE0700508F94 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922532205BE0700508F94 /* ViewController.swift */; };
@@ -27,6 +28,9 @@
 		D52922862205DECE00508F94 /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922852205DECE00508F94 /* TopNavigationStackView.swift */; };
 		D52922882205E61C00508F94 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52922872205E61C00508F94 /* CardView.swift */; };
 		D52ADBC32208196900DFD562 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52ADBC22208196900DFD562 /* RegisterViewController.swift */; };
+		D563F7B42233D29400EAE9A3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F7B32233D29400EAE9A3 /* LoginViewController.swift */; };
+		D563F7B62233ECE900EAE9A3 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F7B52233ECE900EAE9A3 /* UserDetailController.swift */; };
+		D563F7B82234109800EAE9A3 /* SwipingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F7B72234109800EAE9A3 /* SwipingViewController.swift */; };
 		D5BE76E1220C4AB100AA312A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BE76E0220C4AB100AA312A /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +61,7 @@
 		D52432AB2206FBB900DE2F29 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D52432AF2207124900DE2F29 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		D52432B1220718E200DE2F29 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
+		D526ABF0221AD1EE0045001D /* RangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeCell.swift; sourceTree = "<group>"; };
 		D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellTableViewCell.swift; sourceTree = "<group>"; };
 		D529224E2205BE0700508F94 /* Tinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52922512205BE0700508F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +81,9 @@
 		D52922852205DECE00508F94 /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
 		D52922872205E61C00508F94 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D52ADBC22208196900DFD562 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		D563F7B32233D29400EAE9A3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D563F7B52233ECE900EAE9A3 /* UserDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
+		D563F7B72234109800EAE9A3 /* SwipingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingViewController.swift; sourceTree = "<group>"; };
 		D5BE76E0220C4AB100AA312A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +138,9 @@
 				D52ADBC22208196900DFD562 /* RegisterViewController.swift */,
 				D5023C112209F7A1003B87F2 /* RegistrationViewModel.swift */,
 				D5BE76E0220C4AB100AA312A /* SearchViewController.swift */,
+				D563F7B32233D29400EAE9A3 /* LoginViewController.swift */,
+				D563F7B52233ECE900EAE9A3 /* UserDetailController.swift */,
+				D563F7B72234109800EAE9A3 /* SwipingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -216,6 +227,7 @@
 				D52922872205E61C00508F94 /* CardView.swift */,
 				D5121A042208A42600218E27 /* CustomTextField.swift */,
 				D528BFF02215DC070007D075 /* CustomCellTableViewCell.swift */,
+				D526ABF0221AD1EE0045001D /* RangeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,11 +437,15 @@
 				D52ADBC32208196900DFD562 /* RegisterViewController.swift in Sources */,
 				D52922542205BE0700508F94 /* ViewController.swift in Sources */,
 				D52432B2220718E200DE2F29 /* Advertiser.swift in Sources */,
+				D563F7B82234109800EAE9A3 /* SwipingViewController.swift in Sources */,
 				D52922812205C3F100508F94 /* Extensions.swift in Sources */,
 				D52922522205BE0700508F94 /* AppDelegate.swift in Sources */,
 				D5BE76E1220C4AB100AA312A /* SearchViewController.swift in Sources */,
+				D526ABF1221AD1EE0045001D /* RangeCell.swift in Sources */,
 				D52432B02207124900DE2F29 /* CardViewModel.swift in Sources */,
 				D528BFF12215DC070007D075 /* CustomCellTableViewCell.swift in Sources */,
+				D563F7B42233D29400EAE9A3 /* LoginViewController.swift in Sources */,
+				D563F7B62233ECE900EAE9A3 /* UserDetailController.swift in Sources */,
 				D52922882205E61C00508F94 /* CardView.swift in Sources */,
 				D52922862205DECE00508F94 /* TopNavigationStackView.swift in Sources */,
 				D52432AC2206FBB900DE2F29 /* User.swift in Sources */,

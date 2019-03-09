@@ -22,26 +22,20 @@ struct TestUser {
     }
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UserDetailDelegate {
     
     let topStackView = TopNavigationStackView();
     let cardsDeckView = UIView();
     let bottomStackView = HomeButtonStackView();
     
+    var count: Int = 0;
+
     let users: [User] = [
       User(name: "Kelly", age: "23", profession: "Programmer", imageNames: ["ironman"]),
       User(name: "Alexandra", age: "18", profession: "Architect", imageNames:["woman"]),
       User(name: "Sonya", age: "19", profession: "Model", imageNames: ["woman2"]),
       User(name: "Alina", age: "21", profession: "Designer", imageNames: ["woman3"])
     ];
-    
-//    let cardViewsModel = [
-//        User(name: "Kelly", age: "23", profession: "Programmer", imageNames: ["ironman", "woman"]).toCardViewModel(),
-//        User(name: "Alexandra", age: "18", profession: "Architect", imageNames:["woman", "ironman"]).toCardViewModel(),
-//        User(name: "Sonya", age: "19", profession: "Model", imageNames: ["woman2"]).toCardViewModel(),
-//        User(name: "Alina", age: "21", profession: "Designer", imageNames: ["woman3"]).toCardViewModel(),
-//        Advertiser(title: "Hello", brandName: "It's Tinder", posterPhotoName: "poster").toCardViewModel(),
-//    ];
     
     var cardViewsModel = [CardViewModel]();
 
@@ -66,10 +60,30 @@ class ViewController: UIViewController {
         overallStackView.bringSubviewToFront(cardsDeckView)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated);
+//        if Auth.auth().currentUser == nil {
+//            let registrationViewController = RegisterViewController();
+//            let navController = UINavigationController(rootViewController: registrationViewController);
+//            self.present(navController, animated: true);
+//        };
+    };
+    
+    
+    func handleTapMoreInfo(card cardViewModel: CardViewModel) {
+        count = count + 1;
+        print("You tap \(count), \(cardViewModel)")
+        
+        let userDetailController = UserDetailController();
+        userDetailController.cardViewModel = cardViewModel;
+        self.present(userDetailController, animated: true);
+    }
+    
     let hud = JGProgressHUD(style: .dark);
     
-    
     fileprivate func fetchData() {
+        hud.show(in: view);
+        hud.textLabel.text = "Loading...";
         let ref = Database.database().reference();
         ref.child("users").observe(DataEventType.value) { (snapshot, err) in
             if let err = err {
@@ -78,7 +92,6 @@ class ViewController: UIViewController {
             }
 //            print(snapshot);
             guard let dict = snapshot.value as? [String: Any] else { return };
-//            var arr = [User]();
             
             for (_, value) in dict {
                 guard let cast = value as? [String: Any] else {
@@ -89,7 +102,7 @@ class ViewController: UIViewController {
                     print("failed fullName")
                     return
                 };
-                guard let urlOfImage = cast["imageUrl"] as? String else {
+                guard let urlOfImage = cast["urls"] as? [String] else {
                     print("failed imageUrl")
                     return
                     
@@ -103,13 +116,14 @@ class ViewController: UIViewController {
                     return
                 };
                 
-                let infoUser = User(name: fullName, age: age, profession: profession, imageNames: [urlOfImage])
+                let infoUser = User(name: fullName, age: age, profession: profession, imageNames: urlOfImage)
                 self.cardViewsModel.append(infoUser.self.toCardViewModel());
+                self.hud.dismiss();
                 self.setupDummyCards();
             }
             
         }
-    }
+    };
     
     fileprivate func setupDummyCards() {
         cardViewsModel.forEach{ (cardVM) in
@@ -121,12 +135,14 @@ class ViewController: UIViewController {
             }	
             cardView.informationLabel.attributedText = cardVM.attributedString;
             cardView.informationLabel.textAlignment = cardVM.textAlignment;
+            cardView.card = cardVM;
             print(cardVM.imageNames.count);
+            cardView.delegate = self;
             cardView.informationLabel.numberOfLines = 0;
             cardsDeckView.addSubview(cardView);
             cardView.fillSuperview();
         }
-    }
+    };
     
     func downLoad(url: String, completition: @escaping (Data) -> ()) {
         hud.textLabel.text = "Fetching user photo";
@@ -143,10 +159,15 @@ class ViewController: UIViewController {
                 completition(data);
             }.resume();
     };
-
+    
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+        
+        navigationController?.isNavigationBarHidden = true;
+
         view.backgroundColor = .white;
+        
         fetchData();
         setupLayouts();
     }

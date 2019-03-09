@@ -82,6 +82,15 @@ class RegisterViewController: UIViewController {
         return passwordTf;
     }();
     
+    let loginButton: UIButton = {
+        let button = UIButton(type: .system);
+        button.setTitle("go to login", for: .normal);
+        button.setTitleColor(.white, for: .normal);
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .heavy);
+        button.addTarget(self, action: #selector(handleGoLogin), for: .touchUpInside);
+        return button;
+    }();
+    
     let signUpButton: UIButton = {
         let signUpButton = UIButton(type: .system);
         signUpButton.setTitle("Register", for: .normal);
@@ -96,6 +105,11 @@ class RegisterViewController: UIViewController {
     }();
     
     var registerHUD = JGProgressHUD(style: .dark);
+    
+    @objc func handleGoLogin() {
+        let homeController = LoginViewController();
+        navigationController?.pushViewController(homeController, animated: true);
+    };
     
     @objc func handleRedirect() {
         guard let email = emailTextField.text else { return };
@@ -284,9 +298,13 @@ class RegisterViewController: UIViewController {
         overallStackview.axis = .vertical;
         overallStackview.spacing = 8;
         
+        navigationController?.isNavigationBarHidden = true;
+        
         self.view.addSubview(overallStackview);
+        self.view.addSubview(loginButton);
 
         overallStackview.anchor(top: nil, left: view.leadingAnchor, bottom: nil, right: view.trailingAnchor, paddingTop: 32, paddingBottom: 0, paddingLeft: 12, paddingRight: 12, width: 0, height: 0);
+        loginButton.anchor(top: nil, left: self.view.leadingAnchor, bottom: view.bottomAnchor, right: view.trailingAnchor, paddingTop: 32, paddingBottom: 12, paddingLeft: 12, paddingRight: 12, width: 0, height: 0);
         overallStackview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true;
     }
 
